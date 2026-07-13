@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="SalesReport" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
+    <queryString>
+        <![CDATA[SELECT o.id as order_id, c.name as customer_name, s.name as staff_name, o.order_date, o.total, o.status
+FROM orders o
+LEFT JOIN customers c ON o.customer_id = c.id
+LEFT JOIN staff s ON o.staff_id = s.id
+ORDER BY o.order_date DESC]]>
+    </queryString>
+    <field name="order_id" class="java.lang.Integer"/>
+    <field name="customer_name" class="java.lang.String"/>
+    <field name="staff_name" class="java.lang.String"/>
+    <field name="order_date" class="java.sql.Timestamp"/>
+    <field name="total" class="java.lang.Double"/>
+    <field name="status" class="java.lang.String"/>
+    <title>
+        <band height="50">
+            <staticText>
+                <reportElement x="0" y="0" width="802" height="30"/>
+                <textElement textAlignment="Center">
+                    <font size="20" isBold="true"/>
+                </textElement>
+                <text><![CDATA[Sales Report - All Orders]]></text>
+            </staticText>
+        </band>
+    </title>
+    <columnHeader>
+        <band height="30">
+            <staticText><reportElement x="0" y="0" width="100" height="30"/><text><![CDATA[Order ID]]></text></staticText>
+            <staticText><reportElement x="100" y="0" width="200" height="30"/><text><![CDATA[Customer]]></text></staticText>
+            <staticText><reportElement x="300" y="0" width="150" height="30"/><text><![CDATA[Staff]]></text></staticText>
+            <staticText><reportElement x="450" y="0" width="150" height="30"/><text><![CDATA[Date]]></text></staticText>
+            <staticText><reportElement x="600" y="0" width="100" height="30"/><text><![CDATA[Total]]></text></staticText>
+            <staticText><reportElement x="700" y="0" width="102" height="30"/><text><![CDATA[Status]]></text></staticText>
+        </band>
+    </columnHeader>
+    <detail>
+        <band height="25">
+            <textField><reportElement x="0" y="0" width="100" height="25"/><textFieldExpression><![CDATA[{order_id}]]></textFieldExpression></textField>
+            <textField><reportElement x="100" y="0" width="200" height="25"/><textFieldExpression><![CDATA[{customer_name} != null ? {customer_name} : "Walk-in"]]></textFieldExpression></textField>
+            <textField><reportElement x="300" y="0" width="150" height="25"/><textFieldExpression><![CDATA[{staff_name}]]></textFieldExpression></textField>
+            <textField><reportElement x="450" y="0" width="150" height="25"/><textFieldExpression><![CDATA[{order_date}]]></textFieldExpression></textField>
+            <textField><reportElement x="600" y="0" width="100" height="25"/><textFieldExpression><![CDATA["Rs " + String.format("%.2f", {total})]]></textFieldExpression></textField>
+            <textField><reportElement x="700" y="0" width="102" height="25"/><textFieldExpression><![CDATA[{status}]]></textFieldExpression></textField>
+        </band>
+    </detail>
+</jasperReport>

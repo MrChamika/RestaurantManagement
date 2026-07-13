@@ -1,0 +1,14 @@
+.vs/
+build/
+dist/
+nbproject/private/
+*.jar
+*.log
+*.tmp
+*.class
+*.war
+*.ear
+*.iml
+.idea/
+.DS_Store
+Thumbs.db
